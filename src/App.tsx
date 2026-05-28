@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
-import StartScreen from './screens/StartScreen'
-import GameScreen from './screens/GameScreen'
+import StartScreen from './components/StartScreen'
+import GameScreen from './components/GameScreen'
 
 function App() {
   return (
