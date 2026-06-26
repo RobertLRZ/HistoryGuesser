@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { events } from '../data/events'
-import { useNavigate } from 'react-router-dom'
 import { fetchCommonsImageUrl } from '../utils/commons'
 import { collection, addDoc, getDocs, query, orderBy, Timestamp } from 'firebase/firestore'
 import { db } from '../firebase'
@@ -18,7 +17,6 @@ function pickRandomEvents(count: number) {
 }
 
 export default function GameScreen() {
-    const navigate = useNavigate()
     const [selectedEvents] = useState(() => pickRandomEvents(TOTAL_ROUNDS))
     const [round, setRound] = useState(0)
     const [phase, setPhase] = useState<'image' | 'map' | 'year' | 'summary' | 'placement'>('image')
