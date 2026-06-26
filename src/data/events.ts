@@ -108,20 +108,7 @@ export const events = [
     lng: -71.0,
     description: 'In der Nacht vom 16. Dezember 1773 warfen amerikanische Kolonisten als Protest gegen die britische Steuerpolitik 342 Teekisten in den Bostoner Hafen. Das Ereignis war ein Schlüsselmoment im Widerstand gegen die britische Herrschaft.'
   },
-  {
-    id: 10,
-    title: 'Titanic sinkt',
-    wikimedia_file: 'Titanic_sinking,_painting_by_Willy_Stöwer.jpg',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/St%C3%B6wer_Titanic.jpg/800px-St%C3%B6wer_Titanic.jpg',
-    license: 'Public Domain',
-    author: 'Willy Stöwer',
-    year: 1912,
-    lat: 41.7,
-    lng: -49.9,
-    description: 'In der Nacht vom 14. auf den 15. April 1912 kollidierte die RMS Titanic auf ihrer Jungfernfahrt mit einem Eisberg und sank. Über 1.500 Menschen starben. Die Katastrophe führte zu strengeren Sicherheitsvorschriften in der Seefahrt.'
-  },
 
-  // === 20 NEUE EVENTS ===
   {
     id: 11,
     title: 'Atombombe auf Hiroshima',
@@ -134,18 +121,7 @@ export const events = [
     lng: 132.5,
     description: 'Am 6. August 1945 warf die USA die erste Atombombe auf die japanische Stadt Hiroshima ab. Über 70.000 Menschen starben sofort, Zehntausende weitere später an den Folgen. Der Abwurf beschleunigte die japanische Kapitulation und beendete den Zweiten Weltkrieg im Pazifik.'
   },
-  {
-    id: 12,
-    title: 'Juri Gagarin im Weltall',
-    wikimedia_file: 'Yuri_Gagarin_(1961).jpg',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Yuri_Gagarin_%281961%29.jpg/800px-Yuri_Gagarin_%281961%29.jpg',
-    license: 'Public Domain',
-    author: 'Unknown / Soviet state',
-    year: 1961,
-    lat: 45.9,
-    lng: 63.3,
-    description: 'Am 12. April 1961 wurde der sowjetische Kosmonaut Juri Gagarin als erster Mensch in den Weltraum geschossen. Sein 108-minütiger Flug mit der Wostok 1 war ein Triumph der Sowjetunion im Kalten Krieg und veränderte die Geschichte der Raumfahrt.'
-  },
+
   {
     id: 13,
     title: 'Französische Revolution – Sturm auf die Bastille',
@@ -205,18 +181,6 @@ export const events = [
     lat: 40.2,
     lng: -74.3,
     description: 'Am 6. Mai 1937 fing das deutsche Luftschiff LZ 129 Hindenburg beim Landeanflug in Lakehurst, New Jersey, Feuer und brannte innerhalb von 34 Sekunden aus. 36 Menschen starben. Das Ende der Ära der Luftschiffe war besiegelt.'
-  },
-  {
-    id: 18,
-    title: 'Russische Revolution',
-    wikimedia_file: 'Lenin_CL.jpg',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Lenin_CL.jpg/800px-Lenin_CL.jpg',
-    license: 'Public Domain',
-    author: 'Unknown',
-    year: 1917,
-    lat: 59.9,
-    lng: 30.3,
-    description: 'Im Oktober 1917 übernahmen die Bolschewiki unter Lenin die Macht in Russland. Die Revolution beendete das Zarenreich und führte zur Gründung der Sowjetunion, dem ersten kommunistischen Staat der Welt, der die geopolitische Weltordnung für Jahrzehnte prägen sollte.'
   },
   {
     id: 19,

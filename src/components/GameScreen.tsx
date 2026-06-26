@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react'
 import { events } from '../data/events'
 import { useNavigate } from 'react-router-dom'
 import { fetchCommonsImageUrl } from '../utils/commons'
+import { collection, addDoc, getDocs, query, orderBy, Timestamp } from 'firebase/firestore'
+import { db } from '../firebase'
 import ImagePhase from './ImagePhase'
 import MapPhase from './MapPhase'
 import YearPhase from './YearPhase'
 import SummaryScreen from './SummaryScreen'
+import PlacementScreen from './PlacementScreen'
 
 const TOTAL_ROUNDS = 3
 
@@ -18,7 +21,14 @@ export default function GameScreen() {
     const navigate = useNavigate()
     const [selectedEvents] = useState(() => pickRandomEvents(TOTAL_ROUNDS))
     const [round, setRound] = useState(0)
-    const [phase, setPhase] = useState<'image' | 'map' | 'year' | 'summary'>('image')
+    const [phase, setPhase] = useState<'image' | 'map' | 'year' | 'summary' | 'placement'>('image')
+    const [placementData, setPlacementData] = useState<{
+        name: string
+        score: number
+        rank: number
+        above: { name: string; score: number } | null
+        below: { name: string; score: number } | null
+    } | null>(null)
     const [guess, setGuess] = useState<{ lat: number; lng: number } | null>(null)
     const [mapScore, setMapScore] = useState(0)
     const [yearScore, setYearScore] = useState(0)
@@ -44,6 +54,10 @@ export default function GameScreen() {
         setRound(r => r + 1)
         setPhase('image')
     }
+
+    if (phase === 'placement' && placementData) return (
+        <PlacementScreen {...placementData} />
+    )
 
     if (phase === 'image') return (
         <ImagePhase event={event} imageUrl={imageUrl} round={round} totalRounds={TOTAL_ROUNDS} onNext={() => setPhase('map')} />
@@ -86,10 +100,24 @@ return (
         totalScore={totalScore}
         isLastRound={isLastRound}
         onNext={isLastRound ? () => window.location.reload() : goToNextRound}
-        onFinish={(name: string) => {
-    console.log('Eintrag:', name, totalScore)
-    navigate('/')
-}}
+        onFinish={async (name: string) => {
+            const docRef = await addDoc(collection(db, 'scores'), {
+                name,
+                score: totalScore,
+                date: Timestamp.now(),
+            })
+            const snapshot = await getDocs(query(collection(db, 'scores'), orderBy('score', 'desc')))
+            const docs = snapshot.docs
+            const rank = docs.findIndex(d => d.id === docRef.id)
+            setPlacementData({
+                name,
+                score: totalScore,
+                rank: rank + 1,
+                above: rank > 0 ? { name: docs[rank - 1].data().name, score: docs[rank - 1].data().score } : null,
+                below: rank < docs.length - 1 ? { name: docs[rank + 1].data().name, score: docs[rank + 1].data().score } : null,
+            })
+            setPhase('placement')
+        }}
     />
 )
 }

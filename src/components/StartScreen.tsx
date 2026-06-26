@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import iconImg from '../assets/Icon.webp'
+import Leaderboard from './Leaderboard'
 
 export default function StartScreen() {
   const navigate = useNavigate()
@@ -23,6 +24,9 @@ export default function StartScreen() {
         className="bg-[#4B9345] hover:bg-[#4A7A4A] text-white font-bold text-3xl px-12 py-3 rounded-2xl"
       >Start</button>
 
+      <div className="w-full max-w-lg mt-8 px-4 pb-10">
+        <Leaderboard />
+      </div>
     </div>
   )
 }
