@@ -55,6 +55,7 @@ type Props = {
 
 export default function MapPhase({ event, imageUrl, guess, round, totalRounds, setGuess, onNext }: Props) {
     const [revealed, setRevealed] = useState(false)
+    const [localGuess, setLocalGuess] = useState(guess)
 
     return (
         <div className="relative w-full h-screen">
@@ -70,23 +71,26 @@ export default function MapPhase({ event, imageUrl, guess, round, totalRounds, s
             >
                 <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
                 <MapClickHandler onMapClick={(lat, lng) => {
-                    if (!revealed) setGuess({ lat, lng })
+                    if (!revealed) {
+                        setLocalGuess({ lat, lng })
+                        setGuess({ lat, lng })
+                    }
                 }} />
-                {guess && <Marker position={[guess.lat, guess.lng]} />}
+                {localGuess && <Marker position={[localGuess.lat, localGuess.lng]} />}
                 {revealed && <Marker position={[event.lat, event.lng]} icon={solutionIcon} />}
-                {revealed && guess && (
+                {revealed && localGuess && (
                     <Polyline
-                        positions={[[guess.lat, guess.lng], [event.lat, event.lng]]}
+                        positions={[[localGuess.lat, localGuess.lng], [event.lat, event.lng]]}
                         pathOptions={{ color: 'black', dashArray: '8 8', weight: 2 }}
                     />
                 )}
-                {revealed && guess && (
-                    <FitBounds guess={guess} solution={{ lat: event.lat, lng: event.lng }} />
+                {revealed && localGuess && (
+                    <FitBounds guess={localGuess} solution={{ lat: event.lat, lng: event.lng }} />
                 )}
             </MapContainer>
 
-            {revealed && guess && (() => {
-                const distance = calculateDistance(guess.lat, guess.lng, event.lat, event.lng)
+            {revealed && localGuess && (() => {
+                const distance = calculateDistance(localGuess.lat, localGuess.lng, event.lat, event.lng)
                 const score = calculateScore(distance)
                 return (
                     <div className="absolute top-6 left-1/2 -translate-x-1/2 z-[1000] rounded-2xl px-10 py-6 text-center w-80 bg-white" style={{ border: '2px solid #a89060' }}>
@@ -112,11 +116,11 @@ export default function MapPhase({ event, imageUrl, guess, round, totalRounds, s
                     className="absolute top-4 left-4 z-[1000] w-48 rounded-xl object-cover cursor-pointer"
                 />
             )}
-            {guess && (
+            {localGuess && (
                 <button
                     onClick={() => {
                         if (revealed) {
-                            const distance = calculateDistance(guess.lat, guess.lng, event.lat, event.lng)
+                            const distance = calculateDistance(localGuess.lat, localGuess.lng, event.lat, event.lng)
                             const score = calculateScore(distance)
                             onNext(score)
                         } else {
