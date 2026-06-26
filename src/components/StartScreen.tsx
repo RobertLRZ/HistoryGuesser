@@ -1,20 +1,22 @@
 import { useNavigate } from 'react-router-dom'
+import iconImg from '../assets/Icon.webp'
 
 export default function StartScreen() {
   const navigate = useNavigate()
   return (
     // Äußerer Container – nimmt ganzen Bildschirm, zentriert alles
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#C8B88A]">
-      <h1 className="text-5xl font-black text-black mb-6">
+      <h1 className="text-4xl font-black text-black mb-6">
         HistoryGuesser
       </h1>
       <img
-        src="/src/assets/Icon.png"
+        src={iconImg}
         alt="History Guessuer Logo"
         className="w-48 mb-10"/>
         <p className="text-xl font-bold text-black text-center mb-16 px-8 max-w-xl">
         Welches geschichtliches Ereignis ist hier dargestellt?<br />
-        Errate den Ort und die Jahreszeit!
+        Errate den Ort und das Jahr!<br />
+        Ein Spiel besteht aus 3 Runden.
       </p>
        <button
         onClick={() => navigate('/game')}

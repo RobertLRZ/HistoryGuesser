@@ -45,6 +45,7 @@ function FitBounds({ guess, solution }: { guess: { lat: number; lng: number }, s
 
 type Props = {
     event: Event
+    imageUrl: string
     guess: { lat: number; lng: number } | null
     round: number
     totalRounds: number
@@ -52,12 +53,12 @@ type Props = {
     onNext: (score: number) => void
 }
 
-export default function MapPhase({ event, guess, round, totalRounds, setGuess, onNext }: Props) {
+export default function MapPhase({ event, imageUrl, guess, round, totalRounds, setGuess, onNext }: Props) {
     const [revealed, setRevealed] = useState(false)
 
     return (
         <div className="relative w-full h-screen">
-             <RoundBadge round={round} totalRounds={totalRounds} />
+            <RoundBadge round={round} totalRounds={totalRounds} />
             <MapContainer
                 center={[20, 0]}
                 zoom={2}
@@ -90,26 +91,27 @@ export default function MapPhase({ event, guess, round, totalRounds, setGuess, o
                 return (
                     <div className="absolute top-6 left-1/2 -translate-x-1/2 z-[1000] rounded-2xl px-10 py-6 text-center w-80 bg-white" style={{ border: '2px solid #a89060' }}>
                         <p className="text-2xl font-black" style={{ color: 'black' }}>Distanz:</p>
-                        <p className="text-4xl font-black mb-4" style={{ color: 'black' }}>{Math.round(distance)} km</p>
+                        <p className="text-2xl font-black mb-4" style={{ color: 'black' }}>{Math.round(distance)} km</p>
                         <div className="relative h-5 rounded-full mb-4" style={{ background: 'linear-gradient(to right, #ef4444, #eab308, #22c55e)' }}>
                             <div
                                 className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full border-2 border-gray-800"
                                 style={{ left: `clamp(0px, calc(${score * 2}% - 8px), calc(100% - 16px))` }}
                             />
                         </div>
-                        <p className="text-4xl font-black" style={{ color: `hsl(${score * 2}, 80%, 40%)` }}>
+                        <p className="text-2xl font-black" style={{ color: `hsl(${score * 2}, 80%, 40%)` }}>
                             {score}/50 Punkte
                         </p>
                     </div>
                 )
             })()}
 
-            <img
-                src={event.image}
-                alt={event.title}
-                className="absolute top-4 left-4 z-[1000] w-48 rounded-xl object-cover cursor-pointer"
-            />
-
+            {!revealed && (
+                <img
+                    src={imageUrl}
+                    alt={event.title}
+                    className="absolute top-4 left-4 z-[1000] w-48 rounded-xl object-cover cursor-pointer"
+                />
+            )}
             {guess && (
                 <button
                     onClick={() => {
